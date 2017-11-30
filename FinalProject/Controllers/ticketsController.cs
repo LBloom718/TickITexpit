@@ -19,9 +19,9 @@ namespace FinalProject.Controllers
         // GET: tickets
         public ActionResult Index()
         {
-            //var tickets = db.tickets.Include(t => t.user);
+            var tickets = db.tickets.Include(t => t.user);
             //var email = System.Security.Claims.ClaimsPrincipal.Current.Claims.First().Value; 
-            var tickets = db.tickets.Where(t => t.user.email == email);
+            //var tickets = db.tickets.Where(t => t.user.email == email);
             return View(tickets.ToList());
         }
 
