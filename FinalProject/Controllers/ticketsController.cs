@@ -123,6 +123,7 @@ namespace FinalProject.Controllers
         }
 
         // GET: tickets/Delete/5
+        //The delet methods work fine, but we'll have to change the access for them.
         public ActionResult Delete(int? id)
         {
             if (id == null)
