@@ -59,6 +59,7 @@ namespace FinalProject.Controllers
                 var maxValue = db.tickets.Max(t => t.ticketID);
                 ticket.ticketID = maxValue + 1;
                 ticket.status = 1;
+                ticket.date = DateTime.Now.ToShortDateString();
                 db.tickets.Add(ticket);
                 db.SaveChanges();
                 return RedirectToAction("Index");

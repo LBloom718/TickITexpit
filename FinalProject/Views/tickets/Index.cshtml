@@ -8,7 +8,8 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Submit New Ticket", "Create")
+    @*@Html.ActionLink("New Ticket", "Create" ,new {@class= "btn btn-default" })*@
+    <button type="button" onclick="location.href='@Url.Action("Create","tickets")'">Create New Ticket</button>
 </p>
 <h3>Unopen Tickets</h3>
 <table class="table">
@@ -133,3 +134,7 @@
     }
 
 </table>
+
+
+
+ 
