@@ -305,6 +305,7 @@
     <Content Include="Views\tickets\Edit.cshtml" />
     <Content Include="Views\tickets\Index.cshtml" />
     <Content Include="Views\tickets\NotAuthorized.cshtml" />
+    <Content Include="Views\tickets\AdminView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
