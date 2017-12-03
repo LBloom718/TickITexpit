@@ -77,6 +77,7 @@ namespace FinalProject.Controllers
                 //Sets the ticket's status to 1 (unopen). I will be changing this to display words rather than numbers soon.
                 ticket.status = 1;
                 //The rest of the values are the values the user enters on the create ticket page. This next line adds this new ticket to the DB.
+                ticket.date = DateTime.Now.ToShortDateString();
                 db.tickets.Add(ticket);
                 db.SaveChanges();
                 //Takes us back to tickets/Index.
