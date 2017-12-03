@@ -1,7 +1,141 @@
-﻿
+﻿@model IEnumerable<FinalProject.Infrastructure.ticket>
+
 @{
-    ViewBag.Title = "AdminView";
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>AdminView</h2>
+<h2>Index</h2>
+<h3>Welcome, @ViewBag.name</h3>
+
+<p>
+    @*@Html.ActionLink("New Ticket", "Create" ,new {@class= "btn btn-default" })*@
+    <button type="button" onclick="location.href='@Url.Action("Create","tickets")'">Create New Ticket</button>
+</p>
+<h3>Unopen Tickets</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Where(t => t.status == 1))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ticketID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ticketID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ticketID })
+            </td>
+        </tr>
+    }
+</table>
+<br /><hr /><br />
+<h3>Open Tickets</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Where(t => t.status == 2))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ticketID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ticketID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ticketID })
+            </td>
+        </tr>
+    }
+</table>
+<br /><hr /><br />
+<h3>Closed Tickets</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.type)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Where(t => t.status == 3))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ticketID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ticketID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ticketID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
 
