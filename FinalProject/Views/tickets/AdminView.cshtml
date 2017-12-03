@@ -30,28 +30,29 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.Where(t => t.status == 1)) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.type)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ticketID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ticketID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ticketID })
-        </td>
-    </tr>
-}
-    </table>
+    @foreach (var item in Model.Where(t => t.status == 1))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.type)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ticketID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ticketID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ticketID })
+            </td>
+        </tr>
+    }
+</table>
 <br /><hr /><br />
 <h3>Open Tickets</h3>
 <table class="table">
@@ -92,7 +93,7 @@
             </td>
         </tr>
     }
-    </table>
+</table>
 <br /><hr /><br />
 <h3>Closed Tickets</h3>
 <table class="table">
@@ -127,9 +128,9 @@
                 @Html.DisplayFor(modelItem => item.type)
             </td>
             <td>
-               
+                @Html.ActionLink("Edit", "Edit", new { id = item.ticketID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.ticketID }) |
-               
+                @Html.ActionLink("Delete", "Delete", new { id = item.ticketID })
             </td>
         </tr>
     }
@@ -138,4 +139,3 @@
 
 
 
- 

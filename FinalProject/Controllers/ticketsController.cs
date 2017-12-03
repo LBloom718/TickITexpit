@@ -19,6 +19,9 @@ namespace FinalProject.Controllers
     public class ticketsController : Controller
     {
         private FinalProjectDBEntities db = new FinalProjectDBEntities();
+        public string userEmail;
+        public string fName;
+        public string lName;
 
         // GET: tickets
         //By default the route goes tickets/Index (see RouteConfig.cs). This method is controlling the first page you see.
@@ -27,18 +30,37 @@ namespace FinalProject.Controllers
             //var tickets = db.tickets.Include(t => t.user); //As of now this gets all the tickets.
 
             //Gets user's email address.
+            // if userID is administrator
+            //     return View(administratorPage);
+            // if userEmail not in database
+            //     return View(errorMessage);
+            this.userEmail = User.Identity.GetUserName();
+            bool inDatabase = false;
 
-            string userEmail = User.Identity.GetUserName();
+            foreach (user user in db.users)
+            {
+                if (user.email == this.userEmail)
+                {
+                    inDatabase = true;
+                }
+            }
 
-            string fName = (from users in db.users
-                            where users.email == userEmail
-                            select users.firstName).Single();
-            string lName = (from users in db.users
-                            where users.email == userEmail
-                            select users.lastName).Single();
+            if (inDatabase == false)
+            {
+                return View("NotAuthorized");
+            }
+
+            //this.userEmail = User.Identity.GetUserName();
+            
+            this.fName = (from users in db.users
+                          where users.email == userEmail
+                          select users.firstName).Single();
+            this.lName = (from users in db.users
+                          where users.email == userEmail
+                          select users.lastName).Single();
             ViewBag.name = $"{fName} {lName}";
 
-            ////Uses the user's email address to control the display.
+            //Uses the user's email address to control the display.
             var tickets = db.tickets.Where(t => t.user.email == userEmail);
 
             //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
@@ -79,11 +101,17 @@ namespace FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                user user = new user();
                 //Gets the current highest value of any ticketID.
                 var maxValue = db.tickets.Max(t => t.ticketID);
                 //Sets the ticketID of the new ticket to 1 + the current highest ticketId. So as new tickets are created, they always
                 //have an ID one higher than the last one. You can see this when you run the program and look at ticket details.
                 ticket.ticketID = maxValue + 1;
+                //ticket.userID = (from users in db.users
+                //                      where users.email == this.userEmail
+                //                      select users.userID).SingleOrDefault();
+                //ticket.user.firstName = fName;
+                //ticket.user.lastName = this.lName;
                 //Sets the ticket's status to 1 (unopen). I will be changing this to display words rather than numbers soon.
                 ticket.status = 1;
                 //The rest of the values are the values the user enters on the create ticket page. This next line adds this new ticket to the DB.
