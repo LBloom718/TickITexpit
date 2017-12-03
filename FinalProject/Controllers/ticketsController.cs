@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FinalProject.Infrastructure;
 using FinalProject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.Controllers
 {
@@ -23,14 +24,19 @@ namespace FinalProject.Controllers
         //By default the route goes tickets/Index (see RouteConfig.cs). This method is controlling the first page you see.
         public ActionResult Index()
         {
-            var tickets = db.tickets.Include(t => t.user); //As of now this gets all the tickets.
-            //var email = System.Security.Claims.ClaimsPrincipal.Current.Claims.First().Value; (ignore this)
+            //var tickets = db.tickets.Include(t => t.user); //As of now this gets all the tickets.
 
-            //Just an example of how you can change the display. You can play around with it to see. Eventually we will
-            //have something like this that will easily make it so we just see the current user's tickets. Once we can
-            //differentiate administrators, we can just include an if statement to control the output.
-            //var tickets = db.tickets.Where(t => t.user.userID == 3);
+            //Gets user's email address.
+            var userEmail = User.Identity.GetUserName();
             
+            
+            //var lName = from users in db.users
+            //            where users.email == userEmail
+            //            select users.firstName;
+
+            //Uses the user's email address to control the display.
+            var tickets = db.tickets.Where(t => t.user.email == userEmail);
+
             //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
             //I'll add some comments there soon.
             return View(tickets.ToList());
