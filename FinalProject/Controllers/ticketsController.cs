@@ -27,17 +27,18 @@ namespace FinalProject.Controllers
             //var tickets = db.tickets.Include(t => t.user); //As of now this gets all the tickets.
 
             //Gets user's email address.
+
             string userEmail = User.Identity.GetUserName();
-            
+
             string fName = (from users in db.users
                             where users.email == userEmail
                             select users.firstName).Single();
             string lName = (from users in db.users
-                        where users.email == userEmail
-                        select users.lastName).Single();
+                            where users.email == userEmail
+                            select users.lastName).Single();
             ViewBag.name = $"{fName} {lName}";
 
-            //Uses the user's email address to control the display.
+            ////Uses the user's email address to control the display.
             var tickets = db.tickets.Where(t => t.user.email == userEmail);
 
             //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
