@@ -1,9 +1,25 @@
 ﻿body {
-    background-image: url('https://wallpapertag.com/wallpaper/full/9/0/6/537618-detroit-skyline-wallpaper-2048x1340-ipad-pro.jpg');
+    background-image: url('https://images.homedepot-static.com/productImages/379980c8-0e62-4aa0-8465-bcc9451d912b/svn/black-wallpops-wall-decals-wpk2521-64_1000.jpg');
     margin: 0;
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
-p {}
+p {color:darkgreen}
+h1{color:darkgreen}
+h2{color:darkgreen}
+h3{color:darkgreen}
+h3{font-size: 300%}
+h4{color:darkgreen}
+h4{font-size: 300%}
+dt{color:darkgreen}
+dt{font-size: 150%}
+dd{color:darkgreen}
+dd{font-size: 150%}
+h5{color:darkgreen}
+h5{font-size: 350%}
+th{color:darkgreen}
+th{font-size: 250%}
+td{color:darkgreen}
+td{font-size: 200%}

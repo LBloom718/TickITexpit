@@ -5,15 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-<h3>Welcome, @ViewBag.name</h3>
+
+<h5>Welcome, @ViewBag.name</h5>
 
 <p>
     @*@Html.ActionLink("New Ticket", "Create" ,new {@class= "btn btn-default" })*@
     <button type="button" onclick="location.href='@Url.Action("Create","tickets")'">Create New Ticket</button>
 </p>
 <h3>Unopen Tickets</h3>
-<table class="table">
+<table class="table" border="1">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.date)
@@ -54,7 +54,7 @@
     </table>
 <br /><hr /><br />
 <h3>Open Tickets</h3>
-<table class="table">
+<table class="table" border="1">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.date)
@@ -94,8 +94,10 @@
     }
     </table>
 <br /><hr /><br />
+<br />
+<br />
 <h3>Closed Tickets</h3>
-<table class="table">
+<table class="table" border="1">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.date)
