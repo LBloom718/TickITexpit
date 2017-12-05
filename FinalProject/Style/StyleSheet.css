@@ -6,20 +6,20 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-p {color:darkgreen}
-h1{color:darkgreen}
-h2{color:darkgreen}
-h3{color:darkgreen}
+p {color:darkred}
+h1{color:darkred}
+h2{color:darkred}
+h3{color:darkred}
 h3{font-size: 300%}
-h4{color:darkgreen}
+h4{color:darkred}
 h4{font-size: 300%}
-dt{color:darkgreen}
+dt{color:darkred}
 dt{font-size: 150%}
-dd{color:darkgreen}
+dd{color:darkred}
 dd{font-size: 150%}
-h5{color:darkgreen}
+h5{color:darkred}
 h5{font-size: 350%}
-th{color:darkgreen}
+th{color:darkred}
 th{font-size: 250%}
-td{color:darkgreen}
+td{color:darkred}
 td{font-size: 200%}
