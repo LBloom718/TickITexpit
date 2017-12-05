@@ -230,6 +230,8 @@ namespace FinalProject.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(ticket).State = EntityState.Modified;
+                //ticket.userID = 2;
+                //ticket.date = "1/1/11";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
