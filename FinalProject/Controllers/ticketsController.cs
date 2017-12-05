@@ -27,6 +27,69 @@ namespace FinalProject.Controllers
 
         // GET: tickets
         //By default the route goes tickets/Index (see RouteConfig.cs). This method is controlling the first page you see.
+        [HttpPost] 
+        public ActionResult Index(string submit)
+        {
+            this.userEmail = User.Identity.GetUserName();
+            bool inDatabase = false;
+
+            foreach (user user in db.users)
+            {
+                if (user.email == this.userEmail)
+                {
+                    inDatabase = true;
+                }
+            }
+
+            if (inDatabase == false)
+            {
+                return View("NotAuthorized");
+            }
+
+            this.userType = (from users in db.users
+                             where users.email == userEmail
+                             select users.userType).Single();
+
+            if (this.userType == 2)
+            {
+                var adminTickets = db.tickets.Include(t => t.user);
+                ViewBag.name = "Administrator";
+                return View("AdminView", adminTickets.ToList());
+            }
+
+            this.fName = (from users in db.users
+                          where users.email == userEmail
+                          select users.firstName).Single();
+            this.lName = (from users in db.users
+                          where users.email == userEmail
+                          select users.lastName).Single();
+            ViewBag.name = $"{fName} {lName}";
+
+            var strings = submit.Split(' ');
+            var submit1 = strings[0];
+            List<ticket> list = null;
+            switch (submit1)
+            {
+                case "UnOpen":
+                    list = db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 1)).ToList(); break;
+                case "Open":
+                    list =db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 2)).ToList();
+                    break;
+                case "Closed":
+                    list = db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 3)).ToList(); break;
+
+            }
+            //Uses the user's email address to control the display.
+            //var tickets = db.tickets.Where(t => t.user.email == userEmail);
+
+            //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
+            //I'll add some comments there soon.
+            ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t =>( t.user.email == userEmail) && (t.status== 1)).Count();
+            ViewBag.Open = "Open -" + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 2)).Count(); ;
+            ViewBag.Closed = "Closed - " + db.tickets.Where(t => (t.user.email == userEmail) && ( t.status == 3)).Count();
+            // return View(tickets.ToList());
+            return View(list.ToList());
+        }
         public ActionResult Index()
         {
             this.userEmail = User.Identity.GetUserName();
@@ -64,13 +127,19 @@ namespace FinalProject.Controllers
                           select users.lastName).Single();
             ViewBag.name = $"{fName} {lName}";
 
+
             //Uses the user's email address to control the display.
-            var tickets = db.tickets.Where(t => t.user.email == userEmail);
+           // var tickets = db.tickets.Where(t => t.user.email == userEmail);
+            var tickets = db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 1));
 
             //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
             //I'll add some comments there soon.
+            ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 1)).Count();
+            ViewBag.Open = "Open -" + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 2)).Count(); ;
+            ViewBag.Closed = "Closed - " + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 3)).Count();
             return View(tickets.ToList());
         }
+
 
         // GET: tickets/Details/5
         //Controlls what happens when you click on 'details' when running the program, using the ticketID.
