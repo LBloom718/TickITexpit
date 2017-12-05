@@ -10,5 +10,16 @@ p {color:darkgreen}
 h1{color:darkgreen}
 h2{color:darkgreen}
 h3{color:darkgreen}
+h3{font-size: 300%}
+h4{color:darkgreen}
+h4{font-size: 300%}
+dt{color:darkgreen}
+dt{font-size: 150%}
+dd{color:darkgreen}
+dd{font-size: 150%}
+h5{color:darkgreen}
+h5{font-size: 350%}
 th{color:darkgreen}
+th{font-size: 250%}
 td{color:darkgreen}
+td{font-size: 200%}
