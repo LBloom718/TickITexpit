@@ -10,10 +10,23 @@
 
 <p>
     @*@Html.ActionLink("New Ticket", "Create" ,new {@class= "btn btn-default" })*@
-    <button type="button" onclick="location.href='@Url.Action("Create","tickets")'">Create New Ticket</button>
+    @*<button type="button" onclick="location.href='@Url.Action("Create","tickets")'">Create New Ticket</button>*@
 </p>
-<h3>Unopen Tickets</h3>
-<table class="table" border="4" >
+@*//Buttons Start//*@
+@using (Html.BeginForm("Index", "tickets", FormMethod.Post))
+{
+<div class="form-inline">
+
+    <input type="submit" name="submit" id="open" class="btn btn-default alert-info" value="@ViewBag.UnOpen" />
+    <input type="submit" name="submit" id="inprogress" class="btn btn-default alert-info" value="@ViewBag.Open" />
+    <input type="submit" name="submit" id="closed" class="btn btn-default alert-info " value="@ViewBag.Closed" />
+    <div class="add_remove">
+        @Html.ActionLink("+", "Create", "Tickets", htmlAttributes: new { @class = "btn btn - default alert - info align-right"  })
+    </div>
+</div>
+@*//Buttons End*@
+<h3>Tickets</h3>
+<table class="table" border="1">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.date)
@@ -30,7 +43,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model.Where(t => t.status == 1)) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.date)
@@ -45,16 +59,16 @@
             @Html.DisplayFor(modelItem => item.type)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ticketID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ticketID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ticketID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ticketID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ticketID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ticketID })
         </td>
     </tr>
 }
     </table>
-<br /><hr /><br />
+@*<br /><hr /><br />
 <h3>Open Tickets</h3>
-<table class="table" border="4">
+<table class="table" border="1">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.date)
@@ -97,7 +111,7 @@
 <br />
 <br />
 <h3>Closed Tickets</h3>
-<table class="table" border="4">
+<table class="table" border="1">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.date)
@@ -136,8 +150,8 @@
         </tr>
     }
 
-</table>
+</table>*@
 
-
+}
 
  
