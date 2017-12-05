@@ -131,24 +131,6 @@ namespace FinalProject.Controllers
             return View(ticket);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Add([Bind(Include = "userID,firstName,lastName,email,userType")] user user)
-        //{
-        //    if (ModelState.IsValid)
-        //    { 
-        //        var maxValue = db.users.Max(t => t.userID);
-        //        user.userID = maxValue + 1;
-        //        db.users.Add(user);
-        //        db.SaveChanges();
-        //        //Takes us back to tickets/Index.
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.userID = new SelectList(db.users, "userID", "firstName", user.userID);
-        //    return View(user);
-        //}
-
 
 
         //These methods aren't working properly right now and I'm not positive why, as they were auto generated.
