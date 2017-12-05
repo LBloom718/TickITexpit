@@ -22,18 +22,13 @@ namespace FinalProject.Controllers
         public string userEmail;
         public string fName;
         public string lName;
+        public int userType;
+        public int id;
 
         // GET: tickets
         //By default the route goes tickets/Index (see RouteConfig.cs). This method is controlling the first page you see.
         public ActionResult Index()
         {
-            //var tickets = db.tickets.Include(t => t.user); //As of now this gets all the tickets.
-
-            //Gets user's email address.
-            // if userID is administrator
-            //     return View(administratorPage);
-            // if userEmail not in database
-            //     return View(errorMessage);
             this.userEmail = User.Identity.GetUserName();
             bool inDatabase = false;
 
@@ -50,8 +45,17 @@ namespace FinalProject.Controllers
                 return View("NotAuthorized");
             }
 
-            //this.userEmail = User.Identity.GetUserName();
-            //here
+            this.userType = (from users in db.users
+                             where users.email == userEmail
+                             select users.userType).Single();
+
+            if (this.userType == 2)
+            {
+                var adminTickets = db.tickets.Include(t => t.user);
+                ViewBag.name = "Administrator";
+                return View("AdminView", adminTickets.ToList());
+            }
+
             this.fName = (from users in db.users
                           where users.email == userEmail
                           select users.firstName).Single();
@@ -62,7 +66,7 @@ namespace FinalProject.Controllers
 
             //Uses the user's email address to control the display.
             var tickets = db.tickets.Where(t => t.user.email == userEmail);
-            //to here
+
             //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
             //I'll add some comments there soon.
             return View(tickets.ToList());
@@ -101,21 +105,22 @@ namespace FinalProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                user user = new user();
+                this.userEmail = User.Identity.GetUserName();
                 //Gets the current highest value of any ticketID.
                 var maxValue = db.tickets.Max(t => t.ticketID);
                 //Sets the ticketID of the new ticket to 1 + the current highest ticketId. So as new tickets are created, they always
                 //have an ID one higher than the last one. You can see this when you run the program and look at ticket details.
                 ticket.ticketID = maxValue + 1;
-                //ticket.userID = (from users in db.users
-                //                      where users.email == this.userEmail
-                //                      select users.userID).SingleOrDefault();
+                ticket.userID = (from users in db.users
+                                 where users.email == this.userEmail
+                                 select users.userID).Single();
                 //ticket.user.firstName = fName;
                 //ticket.user.lastName = this.lName;
                 //Sets the ticket's status to 1 (unopen). I will be changing this to display words rather than numbers soon.
                 ticket.status = 1;
                 //The rest of the values are the values the user enters on the create ticket page. This next line adds this new ticket to the DB.
                 ticket.date = DateTime.Now.ToShortDateString();
+                ViewBag.email = this.userEmail;
                 db.tickets.Add(ticket);
                 db.SaveChanges();
                 //Takes us back to tickets/Index.
@@ -125,6 +130,26 @@ namespace FinalProject.Controllers
             ViewBag.userID = new SelectList(db.users, "userID", "firstName", ticket.userID);
             return View(ticket);
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Add([Bind(Include = "userID,firstName,lastName,email,userType")] user user)
+        //{
+        //    if (ModelState.IsValid)
+        //    { 
+        //        var maxValue = db.users.Max(t => t.userID);
+        //        user.userID = maxValue + 1;
+        //        db.users.Add(user);
+        //        db.SaveChanges();
+        //        //Takes us back to tickets/Index.
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    ViewBag.userID = new SelectList(db.users, "userID", "firstName", user.userID);
+        //    return View(user);
+        //}
+
+
 
         //These methods aren't working properly right now and I'm not positive why, as they were auto generated.
         //If anyone wants to give it a try, feel free!
