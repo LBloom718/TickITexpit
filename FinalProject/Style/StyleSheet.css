@@ -15,11 +15,11 @@ h4{color:darkred}
 h4{font-size: 300%}
 h5{color: darkred}
 h5{font-size: 350%}
-dt{color:darkred}
+dt{background-color:white}
 dt{font-size: 150%}
-dd{color:darkred}
+dd{background-color: white}
 dd{font-size: 150%}
-th{color:darkred}
 th{font-size: 250%}
-td{color:darkred}
+th{background-color:white}
 td{font-size: 200%}
+td{background-color:white}
