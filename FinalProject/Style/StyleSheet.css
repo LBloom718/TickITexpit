@@ -23,3 +23,6 @@ th{font-size: 250%}
 th{background-color:white}
 td{font-size: 200%}
 td{background-color:white}
+navbar navbar-inverse navbar-fixed-top {
+    background-color: darkred
+}
