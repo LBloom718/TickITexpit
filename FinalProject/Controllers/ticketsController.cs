@@ -22,6 +22,7 @@ namespace FinalProject.Controllers
         public string userEmail;
         public string fName;
         public string lName;
+        public int userType;
 
         // GET: tickets
         //By default the route goes tickets/Index (see RouteConfig.cs). This method is controlling the first page you see.
@@ -50,8 +51,17 @@ namespace FinalProject.Controllers
                 return View("NotAuthorized");
             }
 
-            //this.userEmail = User.Identity.GetUserName();
-            
+            this.userType = (from users in db.users
+                             where users.email == userEmail
+                             select users.userType).Single();
+
+            if (this.userType == 2)
+            {
+                var adminTickets = db.tickets.Include(t => t.user);
+                ViewBag.name = "Administrator";
+                return View("AdminView", adminTickets.ToList());
+            }
+
             this.fName = (from users in db.users
                           where users.email == userEmail
                           select users.firstName).Single();
