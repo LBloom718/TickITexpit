@@ -51,7 +51,7 @@ namespace FinalProject.Controllers
             }
 
             //this.userEmail = User.Identity.GetUserName();
-            
+            //here
             this.fName = (from users in db.users
                           where users.email == userEmail
                           select users.firstName).Single();
@@ -62,7 +62,7 @@ namespace FinalProject.Controllers
 
             //Uses the user's email address to control the display.
             var tickets = db.tickets.Where(t => t.user.email == userEmail);
-
+            //to here
             //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
             //I'll add some comments there soon.
             return View(tickets.ToList());
