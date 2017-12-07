@@ -70,11 +70,11 @@ namespace FinalProject.Controllers
                 switch (submit1)
                 {
                     case "UnOpen":
-                        list = db.tickets.Where(t =>  (t.status == 1)).ToList(); break;
+                        list = db.tickets.Where(t =>  (t.status == Status.UnOpen)).ToList(); break;
                     case "Open":
-                        list = db.tickets.Where(t =>(t.status == 2)).ToList(); break;
+                        list = db.tickets.Where(t =>(t.status == Status.Open)).ToList(); break;
                     case "Closed":
-                        list = db.tickets.Where(t =>  (t.status == 3)).ToList(); break;
+                        list = db.tickets.Where(t =>  (t.status == Status.Closed)).ToList(); break;
 
                 }
                 //Uses the user's email address to control the display.
@@ -82,9 +82,9 @@ namespace FinalProject.Controllers
 
                 //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
                 //I'll add some comments there soon.
-                ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t =>  (t.status == 1)).Count();
-                ViewBag.Open = "Open -" + db.tickets.Where(t =>  (t.status == 2)).Count(); ;
-                ViewBag.Closed = "Closed - " + db.tickets.Where(t =>  (t.status == 3)).Count();
+                ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t =>  (t.status == Status.UnOpen)).Count();
+                ViewBag.Open = "Open -" + db.tickets.Where(t =>  (t.status == Status.Open)).Count(); ;
+                ViewBag.Closed = "Closed - " + db.tickets.Where(t =>  (t.status == Status.Closed)).Count();
                 ViewBag.User = "Admin";
                 return View("AdminView", list);
             }
@@ -100,12 +100,12 @@ namespace FinalProject.Controllers
             switch (submit1)
             {
                 case "UnOpen":
-                    list = db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 1)).ToList(); break;
+                    list = db.tickets.Where(t => (t.user.email == userEmail) && (t.status == Status.UnOpen)).ToList(); break;
                 case "Open":
-                    list =db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 2)).ToList();
+                    list =db.tickets.Where(t => (t.user.email == userEmail) && (t.status == Status.Open)).ToList();
                     break;
                 case "Closed":
-                    list = db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 3)).ToList(); break;
+                    list = db.tickets.Where(t => (t.user.email == userEmail) && (t.status == Status.Closed)).ToList(); break;
 
             }
             //Uses the user's email address to control the display.
@@ -113,9 +113,9 @@ namespace FinalProject.Controllers
 
             //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
             //I'll add some comments there soon.
-            ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t =>( t.user.email == userEmail) && (t.status== 1)).Count();
-            ViewBag.Open = "Open -" + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 2)).Count(); ;
-            ViewBag.Closed = "Closed - " + db.tickets.Where(t => (t.user.email == userEmail) && ( t.status == 3)).Count();
+            ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t =>( t.user.email == userEmail) && (t.status== Status.UnOpen)).Count();
+            ViewBag.Open = "Open -" + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == Status.Open)).Count(); ;
+            ViewBag.Closed = "Closed - " + db.tickets.Where(t => (t.user.email == userEmail) && ( t.status == Status.Closed)).Count();
             // return View(tickets.ToList());
             return View(list.ToList());
         }
@@ -143,11 +143,11 @@ namespace FinalProject.Controllers
 
             if (this.userType == 2)
             {
-                var list = db.tickets.Where(t => (t.status == 1));
+                var list = db.tickets.Where(t => (t.status == Status.UnOpen));
                 ViewBag.name = "Administrator";
-                ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t => (t.status == 1)).Count();
-                ViewBag.Open = "Open -" + db.tickets.Where(t =>  (t.status == 2)).Count(); ;
-                ViewBag.Closed = "Closed - " + db.tickets.Where(t => (t.status == 3)).Count();
+                ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t => (t.status == Status.UnOpen)).Count();
+                ViewBag.Open = "Open -" + db.tickets.Where(t =>  (t.status == Status.Open)).Count(); ;
+                ViewBag.Closed = "Closed - " + db.tickets.Where(t => (t.status == Status.Closed)).Count();
 
                 return View("AdminView",list.ToList() );
             }
@@ -163,13 +163,13 @@ namespace FinalProject.Controllers
 
             //Uses the user's email address to control the display.
            // var tickets = db.tickets.Where(t => t.user.email == userEmail);
-            var tickets = db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 1));
+            var tickets = db.tickets.Where(t => (t.user.email == userEmail) && (t.status == Status.UnOpen));
 
             //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
             //I'll add some comments there soon.
-            ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 1)).Count();
-            ViewBag.Open = "Open -" + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 2)).Count(); ;
-            ViewBag.Closed = "Closed - " + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == 3)).Count();
+            ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == Status.UnOpen)).Count();
+            ViewBag.Open = "Open -" + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == Status.Open)).Count(); ;
+            ViewBag.Closed = "Closed - " + db.tickets.Where(t => (t.user.email == userEmail) && (t.status == Status.Closed)).Count();
             return View(tickets.ToList());
         }
 
@@ -219,7 +219,7 @@ namespace FinalProject.Controllers
                 //ticket.user.firstName = fName;
                 //ticket.user.lastName = this.lName;
                 //Sets the ticket's status to 1 (unopen). I will be changing this to display words rather than numbers soon.
-                ticket.status = 1;
+                ticket.status = Status.UnOpen;
                 //The rest of the values are the values the user enters on the create ticket page. This next line adds this new ticket to the DB.
                 ticket.date = DateTime.Now.ToShortDateString();
                 ViewBag.email = this.userEmail;

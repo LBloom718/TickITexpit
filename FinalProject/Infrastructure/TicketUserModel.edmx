@@ -59,8 +59,8 @@
           <Property Name="userID" Type="Int32" />
           <Property Name="date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="type" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="FinalProjectDBModel.Status" Nullable="false" />
+          <Property Name="type" Type="FinalProjectDBModel.Type" Nullable="false" />
           <NavigationProperty Name="user" Relationship="Self.FK__tickets__userID__4BAC3F29" FromRole="tickets" ToRole="users" />
         </EntityType>
         <EntityType Name="user">
@@ -94,6 +94,8 @@
             <End Role="tickets" EntitySet="tickets" />
           </AssociationSet>
         </EntityContainer>
+        <EnumType Name="Status" />
+        <EnumType Name="Type" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

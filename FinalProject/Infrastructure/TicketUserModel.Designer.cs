@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Administrator\source\repos\FinalProject\FinalProject\Infrastructure\TicketUserModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Simran\Source\Repos\TickITexpit\FinalProject\Infrastructure\TicketUserModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

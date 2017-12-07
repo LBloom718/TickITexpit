@@ -199,6 +199,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Status.cs">
+      <DependentUpon>TicketUserModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\ticket.cs">
       <DependentUpon>TicketUserModel.tt</DependentUpon>
     </Compile>
@@ -216,6 +219,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketUserModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Infrastructure\Type.cs">
+      <DependentUpon>TicketUserModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\user.cs">
       <DependentUpon>TicketUserModel.tt</DependentUpon>

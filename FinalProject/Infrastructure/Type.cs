@@ -10,17 +10,11 @@
 namespace FinalProject.Infrastructure
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class ticket
+    public enum Type : int
     {
-        public int ticketID { get; set; }
-        public Nullable<int> userID { get; set; }
-        public string date { get; set; }
-        public string description { get; set; }
-        public Status status { get; set; }
-        public Type type { get; set; }
-    
-        public virtual user user { get; set; }
+        Hardware,
+        Software,
+        Other
     }
 }
