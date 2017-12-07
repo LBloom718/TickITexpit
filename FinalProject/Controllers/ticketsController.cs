@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace FinalProject.Controllers
 {
+     
     //This controller gets called by the default rout. If you look in the AppStart folder, you'll see
     //a file called RouteConfig.cs. There were changes made there to make this the default controller
     //and I added some comments there to explain how it works exactly.
@@ -25,6 +26,15 @@ namespace FinalProject.Controllers
         public int userType;
         public int id;
 
+        [NonAction]
+        int GetUserType()
+        {
+            this.userEmail = User.Identity.GetUserName();
+            this.userType = (from users in db.users
+                             where users.email == userEmail
+                             select users.userType).Single();
+            return userType;
+        }
         // GET: tickets
         //By default the route goes tickets/Index (see RouteConfig.cs). This method is controlling the first page you see.
         [HttpPost] 
@@ -49,12 +59,34 @@ namespace FinalProject.Controllers
             this.userType = (from users in db.users
                              where users.email == userEmail
                              select users.userType).Single();
-
+            var strings = submit.Split(' ');
+            var submit1 = strings[0];
+            List<ticket> list = null;
+            
             if (this.userType == 2)
             {
                 var adminTickets = db.tickets.Include(t => t.user);
                 ViewBag.name = "Administrator";
-                return View("AdminView", adminTickets.ToList());
+                switch (submit1)
+                {
+                    case "UnOpen":
+                        list = db.tickets.Where(t =>  (t.status == 1)).ToList(); break;
+                    case "Open":
+                        list = db.tickets.Where(t =>(t.status == 2)).ToList(); break;
+                    case "Closed":
+                        list = db.tickets.Where(t =>  (t.status == 3)).ToList(); break;
+
+                }
+                //Uses the user's email address to control the display.
+                //var tickets = db.tickets.Where(t => t.user.email == userEmail);
+
+                //Returns the view with all the tickets as a list. Views/Tickets/Index is the associated html page.
+                //I'll add some comments there soon.
+                ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t =>  (t.status == 1)).Count();
+                ViewBag.Open = "Open -" + db.tickets.Where(t =>  (t.status == 2)).Count(); ;
+                ViewBag.Closed = "Closed - " + db.tickets.Where(t =>  (t.status == 3)).Count();
+                ViewBag.User = "Admin";
+                return View("AdminView", list);
             }
 
             this.fName = (from users in db.users
@@ -65,9 +97,6 @@ namespace FinalProject.Controllers
                           select users.lastName).Single();
             ViewBag.name = $"{fName} {lName}";
 
-            var strings = submit.Split(' ');
-            var submit1 = strings[0];
-            List<ticket> list = null;
             switch (submit1)
             {
                 case "UnOpen":
@@ -114,9 +143,13 @@ namespace FinalProject.Controllers
 
             if (this.userType == 2)
             {
-                var adminTickets = db.tickets.Include(t => t.user);
+                var list = db.tickets.Where(t => (t.status == 1));
                 ViewBag.name = "Administrator";
-                return View("AdminView", adminTickets.ToList());
+                ViewBag.UnOpen = "UnOpen - " + db.tickets.Where(t => (t.status == 1)).Count();
+                ViewBag.Open = "Open -" + db.tickets.Where(t =>  (t.status == 2)).Count(); ;
+                ViewBag.Closed = "Closed - " + db.tickets.Where(t => (t.status == 3)).Count();
+
+                return View("AdminView",list.ToList() );
             }
 
             this.fName = (from users in db.users
@@ -217,6 +250,7 @@ namespace FinalProject.Controllers
                 return HttpNotFound();
             }
             ViewBag.userID = new SelectList(db.users, "userID", "firstName", ticket.userID);
+            ViewBag.userType = GetUserType().ToString();
             return View(ticket);
         }
 
@@ -230,10 +264,13 @@ namespace FinalProject.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(ticket).State = EntityState.Modified;
+                //ticket.userID = 2;
+                //ticket.date = "1/1/11";
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.userID = new SelectList(db.users, "userID", "firstName", ticket.userID);
+            ViewBag.userType = GetUserType().ToString();
             return View(ticket);
         }
 

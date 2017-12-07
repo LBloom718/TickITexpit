@@ -16,18 +16,27 @@
 @using (Html.BeginForm("Index", "tickets", FormMethod.Post))
 {
 <div class="form-inline">
-
-    <input type="submit" name="submit" id="open" class="btn btn-default alert-info" value="@ViewBag.UnOpen" />
-    <input type="submit" name="submit" id="inprogress" class="btn btn-default alert-info" value="@ViewBag.Open" />
-    <input type="submit" name="submit" id="closed" class="btn btn-default alert-info " value="@ViewBag.Closed" />
     <div class="add_remove">
-        @Html.ActionLink("+", "Create", "Tickets", htmlAttributes: new { @class = "btn btn - default alert - info align-right"  })
+        @*@Html.ActionLink("Create New Ticket", "Create", "Tickets", htmlAttributes: new { @class = "btn btn - default alert - info align-right"  })*@
+        <p align="right"> <button type="button" onclick="location.href='@Url.Action("Create", "tickets")'">Create New Ticket</button></p>
     </div>
+    <p align="center">
+    <input type="submit" name="submit" id="open" class="btn btn-lg" value="@ViewBag.UnOpen" />
+        @*<div class="divider" />*@
+    <input type="submit" name="submit" id="inprogress" class="btn btn-default btn-lg" value="@ViewBag.Open" />
+        @*<div class="divider" />*@
+    <input type="submit" name="submit" id="closed" class="btn btn-default btn-lg " value="@ViewBag.Closed" />
+    </p>
+   
 </div>
 @*//Buttons End*@
 <h3>Tickets</h3>
+    var i = 0;
 <table class="table" border="1">
     <tr>
+        <th>
+            @Html.DisplayName("#")
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.date)
         </th>
@@ -45,7 +54,12 @@
 
 @foreach (var item in Model)
 {
+    i++;
     <tr>
+        <td>
+            @Html.Display(@i.ToString())
+
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.date)
         </td>
@@ -66,92 +80,4 @@
     </tr>
 }
     </table>
-@*<br /><hr /><br />
-<h3>Open Tickets</h3>
-<table class="table" border="1">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.type)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model.Where(t => t.status == 2))
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.type)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ticketID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ticketID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ticketID })
-            </td>
-        </tr>
-    }
-    </table>
-<br /><hr /><br />
-<br />
-<br />
-<h3>Closed Tickets</h3>
-<table class="table" border="1">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.type)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model.Where(t => t.status == 3))
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.type)
-            </td>
-            <td>
-               
-                @Html.ActionLink("Details", "Details", new { id = item.ticketID }) |
-               
-            </td>
-        </tr>
-    }
-
-</table>*@
-
-}
-
- 
+} 

@@ -11,7 +11,8 @@ namespace FinalProject.Infrastructure
 {
     using System;
     using System.Collections.Generic;
-    
+    public enum Type { Hardware,Software,Other};
+    public enum Status { UnOpen=1,Open,Closed };
     public partial class ticket
     {
         public int ticketID { get; set; }

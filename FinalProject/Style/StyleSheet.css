@@ -1,5 +1,6 @@
 ﻿body {
     background-image: url('https://www.walldevil.com/wallpapers/a88/water-sky-sunset-city-detroit-michigan-usa.jpg');
+   /*// background-image: url('https://www.pexels.com/photo/business-computer-connection-contemporary-450035/');*/
     margin: 0;
     height: 100%;
     background-position: center;
@@ -24,4 +25,9 @@ th{background-color:white}
 td{font-size: 200%}
 td{background-color:white}
 tr{border:4px solid #000000}
-    
+
+ /*.divider {
+    width: 2px;
+    /*height: auto;
+    display: inline-block;*/
+}*/
