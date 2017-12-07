@@ -7,17 +7,35 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.Infrastructure;
-
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.Controllers
 {
     public class usersController : Controller
     {
         private FinalProjectDBEntities db = new FinalProjectDBEntities();
+        public string userEmail;
 
         // GET: users
         public ActionResult Index()
         {
+            this.userEmail = User.Identity.GetUserName();
+            bool isAdministrator = false;
+
+            foreach (user user in db.users)
+            {
+                if (user.email == this.userEmail)
+                {
+                    if (user.userType == 2)
+                        isAdministrator = true;
+                }
+            }
+
+            if (isAdministrator == false)
+            {
+                return View("NotAuthorized");
+            }
+
             return View(db.users.ToList());
         }
 
@@ -49,6 +67,23 @@ namespace FinalProject.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "userID,firstName,lastName,email,userType")] user user)
         {
+            this.userEmail = User.Identity.GetUserName();
+            bool isAdministrator = false;
+
+            foreach (user u in db.users)
+            {
+                if (u.email == this.userEmail)
+                {
+                    if (u.userType == 2)
+                        isAdministrator = true;
+                }
+            }
+
+            if (isAdministrator == false)
+            {
+                return View("NotAuthorized");
+            }
+
             if (ModelState.IsValid)
             {
                 db.users.Add(user);
